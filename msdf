@@ -1,0 +1,20 @@
+if (fileOutStream != null) 
+        { 
+          fileOutStream.flush(); 
+          fileOutStream.close(); 
+        } 
+      } 
+    } 
+ 
+    content.setStatus(ValidationContent.VALID); 
+ 
+    return content; 
+  } 
+ 
+  public static Class returns(Class inputType) throws Exception 
+  { 
+    if (!ValidationContent.class.isAssignableFrom(inputType)) 
+      throw new Exception("Wrong input type to adapter."); 
+    return ValidationContent.class; 
+  } 
+} 
