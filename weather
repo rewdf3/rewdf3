@@ -1,0 +1,16 @@
+import requests
+import csv
+
+url = 'http://example.com/weather-api'
+response = requests.get(url)
+
+weather_data = response.json()
+
+with open('weather_data.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Date', 'Temperature', 'Humidity'])
+
+    for data in weather_data:
+        writer.writerow([data['date'], data['temperature'], data['humidity']])
+
+
