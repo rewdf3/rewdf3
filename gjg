@@ -1,0 +1,91 @@
+                //2. 发送AJAX请求
+                    var _this = this;
+
+                    // 发送ajax请求，添加数据
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/brand-case/brand/deleteByIds",
+                        data:_this.selectedIds
+                    }).then(function (resp) {
+                        if(resp.data == "success"){
+                            //删除成功
+
+                            // 重新查询数据
+                            _this.selectAll();
+                            // 弹出消息提示
+                            _this.$message({
+                                message: '恭喜你，删除成功',
+                                type: 'success'
+                            });
+
+                        }
+                    })
+                }).catch(() => {
+                    //用户点击取消按钮
+
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+
+
+
+            }
+
+        },
+        data() {
+            return {
+                // 每页显示的条数
+                pageSize:5,
+                // 总记录数
+                totalCount:100,
+                // 当前页码
+                currentPage: 1,
+                // 添加数据对话框是否展示的标记
+                dialogVisible: false,
+
+                // 品牌模型数据
+                brand: {
+                    status: '',
+                    brandName: '',
+                    companyName: '',
+                    id: "",
+                    ordered: "",
+                    description: ""
+                },
+                // 被选中的id数组
+                selectedIds:[],
+                // 复选框选中数据集合
+                multipleSelection: [],
+                // 表格数据
+                tableData: [{
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }]
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
