@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace QQ_2021
+{
+    public partial class QQ : Form
+    {
+        public QQ()
+        {
+            InitializeComponent();
+        }
+
+        private void btn关闭_Click(object sender, EventArgs e)
+        {
+            //关闭当前窗口
+            this.Close();
+
+            //结束整个进程
+            Application.Exit();
+        }
+
+        private void QQ_SizeChanged(object sender, EventArgs e)
+        {
+            {
+                this.ShowInTaskbar = false; //不显示在系统任务栏
+                notQQ.Visible = true; //托盘图标可见
+            }
+
+        }
+
+        private void notQQ_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.ShowInTaskbar = true; //显示在系统任务栏
+                this.WindowState = FormWindowState.Normal; //还原窗体
+                notQQ.Visible = false; //托盘图标隐藏
+            }
+        }
+
+        private void 还原ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.ShowInTaskbar = true; //显示在系统任务栏
+                this.WindowState = FormWindowState.Normal; //还原窗体
+                notQQ.Visible = false; //托盘图标隐藏
+            }
+        }
+
+        private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("是否确认退出程序？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.Dispose();
+                this.Close();
+                Application.Exit();
+            }
+        }
+    }
+}
