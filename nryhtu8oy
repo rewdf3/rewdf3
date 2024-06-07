@@ -1,0 +1,10 @@
+import 'jspdf-autotable';
+ 
+// 添加表格
+const columns = ['Name', 'Email', 'Phone'];
+const data = [
+  ['John Doe', 'john@example.com', '555-1234'],
+  ['Jane Doe', 'jane@example.com', '555-5678'],
+];
+ 
+pdf.autoTable(columns, data, { startY: 70 });
