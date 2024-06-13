@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>视1班</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-----头部开始------->
+<div class="top">
+<a href="index.html"><img class="floatl" src="images/logo.jpg" /></a> 
+<div class="mz">视级</div>
+</div>
+<!---nav开始---->
+<div class="daohang">
+<div id="nav">
+<ul>
+<li><a href="index.html">首页</a></li>
+<li><a href="about.html">关于我们</a></li>
+<li><a href="sheji.html">设计项目</a></li>
+<li><a href="anli.html">客户案例</a></li>
+<li><a href="news.html">新闻资讯</a></li>
+<li><a href="lianxi.html">联系我们</a></li>
+<li><a href="jianjie.html">个人简介</a></li>
+</ul>
+</div>
+</div>
+<!---nav结束---->
+<!-----banner------->
+<div class="box" id="box">
+ <div class="inner">
+        <!--轮播图-->
+        <ul>
+            <li><img src="images/ban01.jpg" alt=""></li>
+            <li><img src="images/ban02.jpg" alt=""></li>
+            <li><img src="images/ban03.jpg" alt=""></li>
+         
+        </ul>
+ 
+        <ol class="bar">
+ 
+        </ol>
+        <!--左右焦点-->
+        <div id="arr">
+                    <span id="left">
+                        <
+                    </span>
+            <span id="right">
+                        >
+                    </span>
+        </div>
+ 
+    </div>
+
+
+</div>
+
+
+<!-----头部结束------->
+<!-----main开始------->
+<div class="main">
+<div class="left">
+<div class="title"><a href="news.html"><h1>新闻资讯</h1><span>更多&gt;&gt;</span></a></div>
+<div class="left-box">
+<ul>
+<a href="new01.html"><li><h2>党支部开展"党员政治生日"主题活动</h2></li></a>
+<a href="new02.html"><li><h2>青春心向党 建功新时代 </h2></li></a>
+<a href="new03.html"><li><h2>后勤保障人员安全知识培训 </h2></li></a>
+<a href="new04.html"><li><h2>教师教育学院举办"快乐起航...</h2></li></a>
+<a href="new01.html"><li><h2>党支部开展"党员政治生日"主题活动</h2></li></a>
+<a href="new02.html"><li><h2>青春心向党 建功新时代 </h2></li></a>
+<a href="new03.html"><li><h2>后勤保障人员安全知识培训 </h2></li></a>
+<a href="new04.html"><li><h2>教师教育学院举办"快乐起航...</h2></li></a>
+<a href="new01.html"><li><h2>党支部开展"党员政治生日"主题活动</h2></li></a>
+<a href="new02.html"><li><h2>青春心向党 建功新时代 </h2></li></a>
+<a href="new03.html"><li><h2>后勤保障人员安全知识培训 </h2></li></a>
+
+</ul>
+</div>
