@@ -1,0 +1,92 @@
+const { io } = require("../../tool/socket.js");
+const { AuthorInfo } = require("../../mod/author/author_info");
+const { ImRoom } = require("../../mod/game/im_room.js");
+const { ImRoomSys } = require("../../mod/game/im_room_sys.js");
+const { ImRoomMember } = require("../../mod/game/im_room_member.js");
+const { Game } = require("../../mod/game/game.js");
+const { GameList } = require("../../mod/game/game_list.js");
+const { Gobang } = require("../../mod/game/gobang.js");
+const { GobangMember } = require("../../mod/game/gobang_member.js");
+const { GobangItem } = require("../../mod/game/gobang_item.js");
+
+let allSocket = {};
+
+// 监听客户端的连接
+io.on("connection", function (socket) {
+  allSocket[socket.id] = socket;
+  // 监听用户掉线
+  socket.on("disconnect", async () => {
+    // 更新用户状态
+    let user = await ImRoomMember.findOneAndUpdate(
+      { socket_id: socket.id },
+      { status: "2" }
+    );
+    if (user) {
+      delete allSocket[user.im_room_id];
+      // 这是触发的方法数组，默认只有im的人员信息变化
+      const funStatus = ["members_change"];
+      // 对于五子棋游戏相关退出房间操作
+      try {
+        let res = await GobangMember.findOneAndUpdate(
+          { socket_id: socket.id },
+          { status: "2" }
+        );
+        // TODO: 这儿存在性能问题
+
+        if (res.n == 1) {
+          funStatus.push("gobang_members_change");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      // 向房间的用户同步信息
+      sendMsgToRoom(user.im_room_id, null, funStatus);
+    }
+  });
+
+  // 监听加入房间
+  socket.on("join_room", async (data) => {
+    if (!global.isObject(data)) {
+      resMsg("加入房间参数错误", 400);
+      return;
+    }
+    // game_id 是游戏id，只有游戏才需要传入
+    let { user_id, room_id, gobang_id } = data;
+    if (!user_id) {
+      resMsg("用户id不能为空", 400);
+      return;
+    }
+    let user = await AuthorInfo.findOne({ _id: user_id });
+    if (!user) {
+      resMsg("用户不存在", 400);
+      return;
+    }
+
+    if (!room_id) {
+      resMsg("房间id不能为空", 400);
+      return;
+    }
+    let room = await ImRoom.findOne({ _id: room_id, status: "1" });
+    if (!room) {
+      resMsg("房间不存在", 400);
+      return;
+    }
+
+    let { max, status } = room;
+    if (+status !== 1) {
+      resMsg("房间未开放", 300);
+      return;
+    }
+
+    // 查找所有加入该房间，并且状态为在线的用户
+    let members = await ImRoomMember.find({
+      im_room_id: room_id,
+      status: 1,
+    }).countDocuments();
+
+    if (members >= max) {
+      resMsg("房间已满", 300);
+      return;
+    }
+
