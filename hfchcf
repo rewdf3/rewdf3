@@ -1,0 +1,39 @@
+# 处理前端发送的数据，插入到数据库
+@app.route('/submit-fault', methods=['POST'])
+def submit_fault():
+    data = request.json
+    process_data(data)  # 处理数据的函数
+    return jsonify({'message': 'Fault information submitted successfully.'})
+def process_data(data):
+    try:
+        # 连接数据库
+        conn = pymysql.connect(host='127.0.0.1', user='root', passwd='180805Wmy', port=3306, db='weldingdata', charset='utf8')
+        # 生成游标对象
+        cur = conn.cursor()
+ 
+        # 插入数据的SQL语句
+        #将数据插入到number_data表中的（number）列中
+        sql = "INSERT INTO number_data (number) VALUES (%s)"
+ 
+        # 从前端发送的数据中获取值
+        #从 "数字" 中获取值 "2"
+        number= data.get('数字')
+ 
+        # 执行SQL语句，插入数据
+        cur.execute(sql, (number))
+ 
+        # 提交事务
+        conn.commit()
+ 
+        # 关闭游标和连接
+        cur.close()
+        conn.close()
+    except pymysql.Error as e:
+        # 打印错误信息
+        print(f"Error {e.args[0]}: {e.args[1]}")
+        # 回滚事务
+        conn.rollback()
+    except Exception as e:
+        # 打印其他异常信息
+        print(f"An error occurred: {e}")
+    return
